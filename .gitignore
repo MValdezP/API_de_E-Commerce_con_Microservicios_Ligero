@@ -1,0 +1,20 @@
+# Dependencies
+**/node_modules
+**/dist
+**/bun.lockb
+
+# Environment
+**/.env
+**/.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker
+
+# IDE
+.vscode
+.idea
+.cursorrules

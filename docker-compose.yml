@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: shopmax_user
+      POSTGRES_PASSWORD: shopmax_password
+      POSTGRES_DB: shopmax_db
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shopmax_user -d shopmax_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  core-api:
+    build:
+      context: ./core-api
+    ports:
+      - "3080:3000"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=shopmax_user
+      - DB_PASSWORD=shopmax_password
+      - DB_DATABASE=shopmax_db
+      - JWT_SECRET=super_secret_jwt_key
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - "4080:4000"
+    environment:
+      - CORE_API_URL=http://core-api:3000
+    depends_on:
+      - core-api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  postgres_data:

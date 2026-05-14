@@ -1,13 +1,12 @@
 # ShopMax E-Commerce API
 
-## 🎥 Video Explicativo
-> *Nota para entrega:* Por favor revisa el archivo de entrega. Este repositorio incluye toda la estructura requerida. Imagina un video de 3 minutos donde se explica:
-> 1. **Clean Architecture**: Separación de Domain, Application y Infrastructure en `core-api`.
-> 2. **NestJS + Hono**: NestJS como core de negocio robusto con TypeORM y Swagger, y Hono como un gateway ligero usando Bun.
-> 3. **Docker Multi-stage**: Optimización de las imágenes de contenedor separando build de runtime, junto con un `docker-compose` que gestiona healthchecks estables con Postgres.
-> 4. **GitFlow**: Integración de features separadas (Auth, Catalog, Orders) integradas mediante pull requests hacia `develop` y luego a `main`.
+## Descripción
 
-## 🏗 Arquitectura
+ShopMax API es una solución robusta y escalable para el comercio electrónico, diseñada bajo los principios de **Clean Architecture**. Esta API proporciona una base sólida para la gestión de productos, carritos, órdenes y autenticación, asegurando una separación clara entre las reglas de negocio y la infraestructura técnica.
+
+El proyecto utiliza un enfoque de microservicios ligeros, combinando la potencia de **NestJS** para el núcleo del negocio y **Hono** como un gateway de API de alto rendimiento.
+
+## Arquitectura
 
 ```mermaid
 graph TD
@@ -23,25 +22,32 @@ graph TD
     Repos --> DB[(PostgreSQL)]
 ```
 
-## 🛠 Stack Tecnológico
+## Stack Tecnológico
+
 - **Core API**: NestJS, TypeScript, TypeORM, Swagger
 - **Gateway**: Hono
 - **Runtime**: Bun
 - **Base de Datos**: PostgreSQL
 - **Infraestructura**: Docker, Docker Compose
 
-## 🚀 Cómo ejecutar localmente
-1. Instalar Bun (si no lo tienes).
-2. Clonar el repositorio.
-3. Ejecutar contenedores:
-```bash
-docker-compose up --build
-```
-4. Acceder a Swagger: `http://localhost:3000/api/docs`
-5. Acceder al Gateway: `http://localhost:4000/health`
+## Inicio Rápido
 
-## 📦 Características de Seguridad Implementadas
-- Rate Limiting (Throttler)
-- Validación y Transformación de DTOs (`class-validator`)
-- Headers Seguros con Helmet
-- Autenticación JWT (setup base completado)
+1. **Prerrequisitos**: Tener instalado [Docker](https://www.docker.com/) y [Docker Compose](https://docs.docker.com/compose/).
+2. **Despliegue**:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Acceso**:
+   - **Documentación Interactiva (Swagger)**: `http://localhost:3080/api/docs`
+   - **Gateway (Health Check)**: `http://localhost:4080/health`
+   - **Rutas Proxiadas**: `http://localhost:4080/api/*`
+
+## Características Principales
+
+- **Arquitectura Limpia**: Separación total de capas para facilitar el mantenimiento y escalado.
+- **Seguridad**: Implementación de Helmet, CORS, Rate Limiting y validación estricta de datos.
+- **Sincronización**: Base de datos sincronizada automáticamente para desarrollo.
+
+---
