@@ -20,7 +20,7 @@ graph TD
     end
     
     Repos --> DB[(PostgreSQL)]
-```
+``` 
 
 ## Stack Tecnológico
 
