@@ -2,7 +2,7 @@
 
 ## Descripción
 
-ShopMax API es una solución robusta y escalable para el comercio electrónico, diseñada bajo los principios de **Clean Architecture**. Esta API proporciona una base sólida para la gestión de productos, carritos, órdenes y autenticación, asegurando una separación clara entre las reglas de negocio y la infraestructura técnica.
+ShopMax API es una solución robusta y escalable para el comercio electrónico, diseñada bajo los principios de **Clean Architecture**. Esta API proporciona una base sólida para la gestión de productos, órdenes, usuarios y pagos.
 
 El proyecto utiliza un enfoque de microservicios ligeros, combinando la potencia de **NestJS** para el núcleo del negocio y **Hono** como un gateway de API de alto rendimiento.
 
@@ -13,13 +13,14 @@ graph TD
     Client[Cliente/Frontend] -->|HTTP| Gateway[Hono Gateway API]
     Gateway -->|Proxy| CoreAPI[NestJS Core API]
     
-    subgraph Core API (Clean Architecture)
+    subgraph Core["Core API (Clean Architecture)"]
         Controllers[Infrastructure: Controllers] --> Services[Application: Use Cases/Services]
         Services --> Domain[Domain: Entities/Interfaces]
         Services --> Repos[Infrastructure: Repositories]
+        Repos --> DB[(PostgreSQL)]
     end
     
-    Repos --> DB[(PostgreSQL)]
+    CoreAPI --> Core
 ``` 
 
 ## Stack Tecnológico
